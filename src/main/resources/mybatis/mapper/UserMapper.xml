@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.UserMapper">
+   
+    <resultMap type="com.example.demo.domain.UserModel" id="Base_Result_Map">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_number" property="userNumber" jdbcType="VARCHAR"/>
+        <result column="user_age" property="userAge" jdbcType="INTEGER"/>
+        <result column="user_descripe" property="userDescripe" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <sql id="Table_Name">t_user</sql>
+    <sql id="Base_Column">
+         id, user_name, user_number, user_age, user_descripe
+    </sql>
+
+   <select id="getUsers" resultMap="Base_Result_Map">
+       select
+        <include refid="Base_Column"></include>
+       from
+        <include refid="Table_Name"></include>
+   </select>
+   
+   <update id="changeUserAge">
+      update
+        <include refid="Table_Name"></include>
+      set user_age=#{age}
+      where id=#{id}
+   </update>
+  
+</mapper>
